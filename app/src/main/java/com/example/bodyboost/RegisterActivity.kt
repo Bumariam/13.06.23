@@ -1,25 +1,30 @@
-package com.example.alcohol
+package com.example.bodyboost
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.database.Observable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.alcohol.databinding.ActivityHomeBinding
-import com.example.alcohol.databinding.ActivityRegisterBinding
+import com.example.bodyboost.databinding.ActivityRegisterBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.widget.RxTextView
 
 @SuppressLint("CheckResult")
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//  Auth
+        auth = FirebaseAuth.getInstance()
+
 
 //  Email Validation
         val emailStream = RxTextView.textChanges(binding.etEmail)
@@ -31,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
             showEmailValidAlert(it)
         }
 
-//  Usernam Validation
+//  Username Validation
         val usernameStream = RxTextView.textChanges(binding.etUsername)
             .skipInitialValue()
             .map { username ->
@@ -90,7 +95,9 @@ class RegisterActivity : AppCompatActivity() {
 
 //  Click
         binding.btnRegister.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
+            registerUser(email, password)
         }
         binding.tvHaveAccount.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -110,5 +117,17 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showPasswordConfirmAlert(isNotValid: Boolean) {
         binding.etConfirmPassword.error = if (isNotValid) "Password tidak sama!" else null
+    }
+
+    private  fun registerUser(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    Toast.makeText(this, "Register berhasli!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

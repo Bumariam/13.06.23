@@ -1,4 +1,4 @@
-package com.example.alcohol
+package com.example.bodyboost
 
 import org.junit.Test
 

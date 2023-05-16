@@ -1,4 +1,4 @@
-package com.example.alcohol
+package com.example.bodyboost
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
