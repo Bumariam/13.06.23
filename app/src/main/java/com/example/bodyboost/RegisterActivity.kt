@@ -79,10 +79,10 @@ class RegisterActivity : AppCompatActivity() {
             emailStream,
             usernameStream,
             passwordStream,
-            passwordConfirmStream,
-            { emailInvalid: Boolean, usernameInvalid: Boolean, passwordInvalid: Boolean, passwordConfirmInvalid: Boolean ->
-                !emailInvalid && !usernameInvalid && !passwordInvalid && !passwordConfirmInvalid
-            })
+            passwordConfirmStream
+        ) { emailInvalid: Boolean, usernameInvalid: Boolean, passwordInvalid: Boolean, passwordConfirmInvalid: Boolean ->
+            !emailInvalid && !usernameInvalid && !passwordInvalid && !passwordConfirmInvalid
+        }
         invalidFieldStream.subscribe { isValid ->
             if (isValid) {
                 binding.btnRegister.isEnabled = true
