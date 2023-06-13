@@ -106,17 +106,17 @@ class RegisterActivity : AppCompatActivity() {
 
     private  fun showTextMinimalAlert(isNotValid: Boolean, text: String) {
         if (text == "Username")
-            binding.etUsername.error = if (isNotValid) "$text harus lebih dari 6 huruf!" else null
+            binding.etUsername.error = if (isNotValid) "$text there must be more than 6 letters!" else null
         else if (text == "Password")
-            binding.etPassword.error = if (isNotValid) "$text harus lebih dari 8 huruf!" else null
+            binding.etPassword.error = if (isNotValid) "$text there must be more than 8 letters!" else null
     }
 
     private fun  showEmailValidAlert(isNotValid: Boolean) {
-        binding.etEmail.error = if (isNotValid) "Email tidak valid!" else null
+        binding.etEmail.error = if (isNotValid) "Invalid email address!" else null
     }
 
     private fun showPasswordConfirmAlert(isNotValid: Boolean) {
-        binding.etConfirmPassword.error = if (isNotValid) "Password tidak sama!" else null
+        binding.etConfirmPassword.error = if (isNotValid) "Passwords don't match!" else null
     }
 
     private  fun registerUser(email: String, password: String) {
@@ -124,7 +124,7 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     startActivity(Intent(this, LoginActivity::class.java))
-                    Toast.makeText(this, "Register berhasli!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Registration was successful.!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
                 }

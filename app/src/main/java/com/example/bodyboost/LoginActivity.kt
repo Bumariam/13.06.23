@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
 
-//  Usernam Validation
+//  Username Validation
         val usernameStream = RxTextView.textChanges(binding.etEmail)
             .skipInitialValue()
             .map { username ->
@@ -86,9 +86,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showTextMinimalAlert(isNotValid: Boolean, text: String) {
         if (text == "Email/Username")
-            binding.etEmail.error = if (isNotValid) "$text tidak boleh kosong!" else null
+            binding.etEmail.error = if (isNotValid) "$text this field cannot be empty" else null
         else if (text == "Password")
-            binding.etPassword.error = if (isNotValid) "$text tidak boleh kosong!" else null
+            binding.etPassword.error = if (isNotValid) "$text this field cannot be empty" else null
     }
 
 
@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                     Intent(this, HomeActivity::class.java).also {
                         it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(it)
-                        Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Login successfully!", Toast.LENGTH_SHORT).show()
 
                     }
                 } else {
