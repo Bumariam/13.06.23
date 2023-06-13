@@ -12,4 +12,7 @@
     <color name="grey_light">#F0F0F0</color>
     <color name="primary_color2">#435CAE</color>
 
+    <color name="calories">#db4d00</color>
+    <color name="distance">#361E60</color>
+    <color name="steps">#5A72BB</color>
 </resources>
